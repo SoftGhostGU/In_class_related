@@ -1,4 +1,13 @@
 # In_class_related
-Some project and experimental reports
 
-Including OS_project, Computer_networking_Lab, etc.
+💡 华东师范大学软件工程学院密码与网络安全系2023级作业（部分）
+📌 上传的资料以用到`latex`的作业为主
+
+🔥 暂时包含：
+1️⃣ 计算机网络实验报告
+2️⃣ 操作系统实验报告
+
+🚀 正在上传：
+1️⃣ 形式语言与自动机理论作业
+
+⏳ 将会持续更新~如果能帮助到学弟学妹的话记得留下一个免费的star哦~
