@@ -124,11 +124,11 @@
 		
 		\begin{verbatim}
 			(select ID, name
-			from student)
+			 from student)
 			except
 			(select distinct ID, name
-			from student natural join takes
-			where takes.year <2017)
+			 from student natural join takes
+			 where takes.year <2017)
 		\end{verbatim}
 		
 		\item[c)]
@@ -145,7 +145,7 @@
 			select min(max_salary)
 			from (select dept_name, max(salary) as max_salary
 			      from instructor
-			      group by dept_name)
+			      group by dept_name) as max_salary_table
 		\end{verbatim}
 	\end{enumerate}\textbf{}
 	
