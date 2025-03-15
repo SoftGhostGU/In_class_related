@@ -1,0 +1,173 @@
+\documentclass{article}
+
+% 导入宏包
+\usepackage{fancyhdr}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[a4paper, body={18cm,22cm}]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amstext,wasysym,enumerate,graphicx}
+\usepackage{float,abstract,booktabs,indentfirst,amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+
+
+% 设置段落
+\renewcommand\arraystretch{1.4}
+\setlength{\parindent}{2em}
+\setCJKmonofont{黑体}
+
+% 设置高亮文字
+\newtcbox{\mybox}[1][red]
+{on line, arc = 0pt, outer arc = 0pt,
+	colback = #1!10!white, colframe = #1!50!black,
+	boxsep = 0pt, left = 1pt, right = 1pt, top = 2pt, bottom = 2pt,
+	boxrule = 0pt, bottomrule = 1pt, toprule = 1pt}
+
+% 配置代码显示
+\lstset{
+	xleftmargin = 3em,
+	xrightmargin = 3em,
+	aboveskip = 1em,
+	backgroundcolor = \color{white},
+	basicstyle = \small\ttfamily,
+	rulesepcolor = \color{gray},
+	breaklines = true,
+	numbers = left,
+	numberstyle = \small,
+	numbersep = -14pt,
+	keywordstyle = \color{purple}\bfseries,
+	commentstyle = \color{green!60!black}, % 修改注释颜色
+	stringstyle = \color{red!60!green!90!blue!90},
+	morekeywords = {ASSERT, int64_t, uint32_t},
+	moreemph = {ASSERT, NULL},
+	emphstyle = \color{red}\bfseries,
+	moreemph = [2]{int64\_t, uint32\_t, tid\_t, uint8\_t, int16\_t, uint16\_t, int32\_t, size\_t, bool},
+	emphstyle = [2]\color{purple}\bfseries,
+	frame = shadowbox,
+	showspaces = false,
+	columns = fixed
+	morecomment = [l][\color{green!60!black}]{+}, % 设置以+开头的代码行为绿色
+}
+
+%--------------------页眉--------------------%
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyhead[C]{华东师范大学软件工程学院作业}
+\fancyfoot[C]{-\thepage-}
+\renewcommand{\headrulewidth}{1.5pt}
+
+%--------------------标题--------------------%
+
+\begin{document}
+	
+	\begin{center}
+		{\Large{\textbf{\heiti 软件工程学院数据库系统及其应用作业}}}
+		\begin{table}[htb]
+			\flushleft
+			\begin{tabular}{p{0.4\linewidth}p{0.27\linewidth}p{0.28\linewidth}}\\
+				\textbf{实验课程}：数据库系统及其应用  & \textbf{年级}：2023级       & \textbf{姓名}：顾翌炜  \\
+				\textbf{作业编号}：Week-3    & \textbf{学号}：10235101527 & \textbf{作业日期}：2025/03/05  \\
+			\end{tabular}
+		\end{table}
+	\end{center}
+	\rule{\textwidth}{2pt}
+	
+	\setlength{\parindent}{2em}
+	
+	\section*{4.12}
+	
+	假设一个用户想授予另一个用户一个关系上的选择( select ) 访问权限。为什么该用户应该在授权( grant ) 语句中包含（或不包含）granted by current role 子句？
+	
+	\section*{4.12 解答}
+	
+	\begin{enumerate}
+		\item \textbf{包含 \texttt{GRANTED BY CURRENT ROLE} 子句:}
+		\begin{itemize}
+			\item 适用于权限通过角色进行管理的场景。如果当前用户是通过某个角色获得的访问权限，并希望通过该角色将权限授予其他用户，可以使用 \texttt{GRANTED BY CURRENT ROLE} 来明确指定。
+			\item 这种方式有助于跟踪权限的来源，当权限需要撤销时，可以更容易地撤销特定角色下的授权。
+			\item 在某些数据库系统中，权限通过角色传递，使用该子句可以确保权限按照角色继承规则顺利进行授予。
+		\end{itemize}
+		
+		\item \textbf{不包含 \texttt{GRANTED BY CURRENT ROLE} 子句:}
+		\begin{itemize}
+			\item 如果当前用户的权限是直接授予的，而不是通过角色继承式获得的，那么可以省略该子句。权限将直接授予目标用户，而不是通过角色。
+			\item 对于直接授权，直接体现权限来源，不需要引入角色的概念来管理权限分配。
+			\item 对于那些不支持通过角色传递权限的数据库系统，该子句是无意义的，因此不需要包含。
+		\end{itemize}
+	\end{enumerate}
+	
+	\section*{4.15}
+	
+	请重写查询：
+	
+	\begin{verbatim}
+			select *
+			from section natural join classroom
+	\end{verbatim}
+	
+	不使用自然连接，而是使用具有using 条件的内连接。
+	
+	\section*{4.15 解答}
+	
+	\begin{lstlisting}[language=sql, title=4.15 解答, tabsize=2]
+		SELECT *
+		FROM section
+		JOIN classroom
+		USING (building, room number);
+	\end{lstlisting}
+	
+	\section*{4.18}
+	
+	对于图4-12中的数据库，请编写一个查询来找出没有经理的每位员工的ID。请注意．一位员
+	工可能只是没有列出经理、或者可能经理值为空。请使用外连接来编写你的查询，然后根本不
+	使用外连接再重写查询。
+	
+	\begin{table}[h!]
+		\centering
+		\begin{tabular}{|l|}
+			\hline
+			\textbf{employee (\underline{\textit{ID}}, person\_name, street, city)} \\
+			\textbf{works (\underline{\textit{ID}}, company\_name, salary)} \\ 
+			\textbf{company (\underline{\textit{company\_name}}, city)} \\ 
+			\textbf{manages (\underline{\textit{ID}}, manager\_id)} \\ \hline
+		\end{tabular}
+		\caption{关系模式示例}
+	\end{table}
+	
+	\section*{4.18 解答}
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 使用外连接
+		
+		\begin{lstlisting}[language=sql, title=4.18-1 解答, tabsize=2]
+		    SELECT employee.ID
+		    FROM employee
+		    LEFT OUTER JOIN manages
+		    ON employee.ID = managers.ID
+		    where manages.manager_id IS NULL;
+		\end{lstlisting}
+		
+		\item 不使用外连接
+		
+		\begin{lstlisting}[language=sql, title=4.18-1 解答, tabsize=2]
+		    (SELECT employee.ID
+		    FROM employee)
+		    except
+		    (SELECT managers.ID
+		    FROM managers);
+		\end{lstlisting}
+	\end{enumerate}\textbf{}
+	
+\end{document}
