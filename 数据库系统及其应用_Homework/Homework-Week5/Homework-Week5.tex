@@ -1,0 +1,154 @@
+\documentclass{article}
+
+% 导入宏包
+\usepackage{fancyhdr}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[a4paper, body={18cm,22cm}]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amstext,wasysym,enumerate,graphicx}
+\usepackage{float,abstract,booktabs,indentfirst,amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+
+
+% 设置段落
+\renewcommand\arraystretch{1.4}
+\setlength{\parindent}{2em}
+\setCJKmonofont{黑体}
+
+% 设置高亮文字
+\newtcbox{\mybox}[1][red]
+{on line, arc = 0pt, outer arc = 0pt,
+	colback = #1!10!white, colframe = #1!50!black,
+	boxsep = 0pt, left = 1pt, right = 1pt, top = 2pt, bottom = 2pt,
+	boxrule = 0pt, bottomrule = 1pt, toprule = 1pt}
+
+% 配置代码显示
+\lstset{
+	xleftmargin = 3em,
+	xrightmargin = 3em,
+	aboveskip = 1em,
+	backgroundcolor = \color{white},
+	basicstyle = \small\ttfamily,
+	rulesepcolor = \color{gray},
+	breaklines = true,
+	numbers = left,
+	numberstyle = \small,
+	numbersep = -14pt,
+	keywordstyle = \color{purple}\bfseries,
+	commentstyle = \color{green!60!black}, % 修改注释颜色
+	stringstyle = \color{red!60!green!90!blue!90},
+	morekeywords = {ASSERT, int64_t, uint32_t},
+	moreemph = {ASSERT, NULL},
+	emphstyle = \color{red}\bfseries,
+	moreemph = [2]{int64\_t, uint32\_t, tid\_t, uint8\_t, int16\_t, uint16\_t, int32\_t, size\_t, bool},
+	emphstyle = [2]\color{purple}\bfseries,
+	frame = shadowbox,
+	showspaces = false,
+	columns = fixed
+	morecomment = [l][\color{green!60!black}]{+}, % 设置以+开头的代码行为绿色
+}
+
+%--------------------页眉--------------------%
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyhead[C]{华东师范大学软件工程学院作业}
+\fancyfoot[C]{-\thepage-}
+\renewcommand{\headrulewidth}{1.5pt}
+
+%--------------------标题--------------------%
+
+\begin{document}
+	
+	\begin{center}
+		{\Large{\textbf{\heiti 软件工程学院数据库系统及其应用作业}}}
+		\begin{table}[htb]
+			\flushleft
+			\begin{tabular}{p{0.4\linewidth}p{0.27\linewidth}p{0.28\linewidth}}\\
+				\textbf{实验课程}：数据库系统及其应用  & \textbf{年级}：2023级       & \textbf{姓名}：顾翌炜  \\
+				\textbf{作业编号}：Week-5    & \textbf{学号}：10235101527 & \textbf{作业日期}：2025/03/20  \\
+			\end{tabular}
+		\end{table}
+	\end{center}
+	\rule{\textwidth}{2pt}
+	
+	\setlength{\parindent}{2em}
+	
+	\section*{5.7}
+	
+	Consider the bank database of Figure 5.21. Write an SQL trigger to carry out the following action: On \textbf{delete} of an account, for each customer-owner of the account, check if the owner has any remaining accounts, and if she does not, delete her from the \textit{depositor} relation.
+	
+	\begin{lstlisting}[language=, title=Banking Database, tabsize=4]
+		branch (branch_name, branch_city, assets)
+		customer (customer_name, customer_street, customer_city)
+		loan (loan_number, branch_name, amount)
+		borrower (customer_name, loan_number)
+		account (account_number, branch_name, balance)
+		depositor (customer_name, account_number)
+	\end{lstlisting}
+	
+	\section*{5.7 解答}
+	
+	\begin{verbatim}
+		CREATE TRIGGER delete_check
+		AFTER DELETE ON account
+		  REFERENCING old row as orow
+		  FOR EACH ROW
+		  BEGIN
+		    DELETE FROM depositor
+		    WHERE customer_name NOT IN (SELECT d1.customer_name
+		                                FROM depositor d1
+		                                WHERE d1.account_number <> orow.account_number)
+		   END
+	\end{verbatim}
+	
+	\section*{5.8}
+	
+	Given a relation $ S(\textbf{student}, \textbf{subject}, \textbf{marks}) $, write a query to find the top 10 students by total marks, by using SQL ranking. Include all students tied for the final spot in the ranking, even if that results in more than 10 total students.
+	
+	\section*{5.8 解答}
+	
+	\begin{verbatim}
+		SELECT *
+		FROM (SELECT student, total_marks, RANK() OVER (ORDER BY total_marks DESC) AS s_rank
+		      FROM (SELECT student, sum(marks) AS total_marks
+		            FROM S
+		            GROUP BY student)
+		     )
+		WHERE s_rank <= 10
+	\end{verbatim}
+	
+	\section*{5.10}
+	
+    Using the relation from Exercise 5.9, write an SQL query to generate a report showing the number of shares traded, number of trades, and total dollar volume broken down by year, each month of each year, and each trading day.
+    
+    \textbf{Relation for 5.10:}
+    $
+    $nyse $ (\textbf{year}, \textbf{month}, \textbf{day}, $shares\_traded$, $dollar\_volume$, $num\_trades$)
+    $
+    
+    \textit{['nyse' means: New York Stock Exchange]}
+	
+	\section*{5.10 解答}
+	
+	\begin{verbatim}
+		SELECT year, month, day, 
+		  sum(shares_traded) as sum_share, 
+		  sum(num_trades) as num_trades, 
+		  sum(dollar_volume) as total_dollar
+		FROM nyse
+		GROUP BY ROLLUP (year, month, day)
+	\end{verbatim}
+\end{document}
