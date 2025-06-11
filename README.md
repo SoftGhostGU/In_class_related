@@ -16,3 +16,15 @@
 3️⃣ 数据库实践报告
 
 ### ⏳ 将会持续更新\~如果能帮助到你的话记得留下一个免费的star哦\~  
+
+## :balloon: ***以下是我自己的几个参考网站***：  
+1️⃣ **OS笔记**：
+  https://blog.csdn.net/qq_39326472/article/details/88828361  
+2️⃣ **OS实验**：
+  代码和实验报告：https://zhuanlan.zhihu.com/p/104497182 、 https://github.com/CCXXXI/pintos  
+  project1：https://www.cnblogs.com/laiy/p/pintos_project1_thread.html  
+  project2：https://wenku.baidu.com/view/4e869bed4531b90d6c85ec3a87c24028905f85c8.html?_wkts_=1727076719213  
+  代码：https://link.zhihu.com/?target=https%3A//github.com/ChristianJHughes/pintos-project2  
+			  https://link.zhihu.com/?target=https%3A//github.com/Wang-GY/pintos-project2/blob/master/project_report.md  
+3️⃣ **马原答案**（实际上是所有mooc平台上的答案，这里都有）：  
+  https://ginnnnnn.top/mooc/  
