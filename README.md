@@ -15,10 +15,11 @@
 - https://blog.csdn.net/qq_39326472/article/details/88828361
 
 2️⃣ **OS实验**：
-- 代码和实验报告：https://zhuanlan.zhihu.com/p/104497182 、 https://github.com/CCXXXI/pintos  
 - project1：https://www.cnblogs.com/laiy/p/pintos_project1_thread.html  
 - project2：https://wenku.baidu.com/view/4e869bed4531b90d6c85ec3a87c24028905f85c8.html?_wkts_=1727076719213  
-- 代码：
+- 代码和实验报告：
+	- https://zhuanlan.zhihu.com/p/104497182  
+	- https://github.com/CCXXXI/pintos  
 	- https://link.zhihu.com/?target=https%3A//github.com/ChristianJHughes/pintos-project2  
 	- https://link.zhihu.com/?target=https%3A//github.com/Wang-GY/pintos-project2/blob/master/project_report.md
 
