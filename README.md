@@ -12,7 +12,7 @@
 
 ## :balloon: ***以下是我自己上课的几个参考网站***：  
 1️⃣ **OS笔记**：
-- ![操作系统概念 学习笔记](https://blog.csdn.net/qq_39326472/article/details/88828361)
+- ![https://blog.csdn.net/qq_39326472/article/details/88828361](操作系统概念 学习笔记)
 
 2️⃣ **OS实验**：
 - project1：https://www.cnblogs.com/laiy/p/pintos_project1_thread.html  
