@@ -1,0 +1,303 @@
+\documentclass{article}
+
+% 导入宏包
+\usepackage{fancyhdr}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[a4paper, body={18cm,22cm}]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amstext,wasysym,enumerate,graphicx}
+\usepackage{float,abstract,booktabs,indentfirst,amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+\usepackage{titlesec}
+\usepackage{setspace}
+\usepackage[utf8]{inputenc}
+
+% 设置section标题格式，不显示章节数字
+\titleformat{\section}[hang]{\normalfont\Large\bfseries}{}{0em}{}[]
+% 设置subsection标题格式，不显示章节数字
+\titleformat{\subsection}[hang]{\normalfont\Large\bfseries}{}{0em}{}[\titlerule]
+
+
+% 设置段落
+\renewcommand\arraystretch{1.4}
+\setlength{\parindent}{2em}
+\setCJKmonofont{黑体}
+
+% 设置高亮文字
+\newtcbox{\mybox}[1][red]
+{on line, arc = 0pt, outer arc = 0pt,
+	colback = #1!10!white, colframe = #1!50!black,
+	boxsep = 0pt, left = 1pt, right = 1pt, top = 2pt, bottom = 2pt,
+	boxrule = 0pt, bottomrule = 1pt, toprule = 1pt}
+
+% 配置代码显示
+\lstset{
+	xleftmargin = 3em,
+	xrightmargin = 3em,
+	aboveskip = 1em,
+	backgroundcolor = \color{white},
+	basicstyle = \small\ttfamily,
+	rulesepcolor = \color{gray},
+	breaklines = true,
+	numbers = left,
+	numberstyle = \small,
+	numbersep = -14pt,
+	keywordstyle = \color{purple}\bfseries,
+	commentstyle = \color{green!60!black}, % 修改注释颜色
+	stringstyle = \color{red!60!green!90!blue!90},
+	morekeywords = {ASSERT, int64_t, uint32_t},
+	moreemph = {ASSERT, NULL},
+	emphstyle = \color{red}\bfseries,
+	moreemph = [2]{int64\_t, uint32\_t, tid\_t, uint8\_t, int16\_t, uint16\_t, int32\_t, size\_t, bool},
+	emphstyle = [2]\color{purple}\bfseries,
+	frame = shadowbox,
+	showspaces = false,
+	columns = fixed
+	morecomment = [l][\color{green!60!black}]{+}, % 设置以+开头的代码行为绿色
+}
+
+% 1.5倍行间距
+\linespread{1.5}
+
+% 段落间距
+\setlength{\parskip}{6pt}
+
+
+%--------------------页眉--------------------%
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{10235101527~顾翌炜}
+\fancyhead[C]{中国文化通论期末报告}
+\fancyfoot[C]{-\thepage-}
+\renewcommand{\headrulewidth}{1.5pt}
+
+%--------------------标题--------------------%
+
+\begin{document}
+	
+	\begin{center}
+		{\Large{\textbf{\heiti 雪中铃（白话文版）}}}
+	\end{center}
+	
+	\subsection{第一章：黑雨启}
+	
+	\textbf{我是在一场黑雨中醒来的。}
+	
+	泥土的气味最先回到我身体里——潮湿的、腐殖的，带着被落叶反复掩埋又翻出的陈旧。我的手指陷在泥中，像某种植物的根须，苍白而静默地汲取着大地的记忆。  
+	
+	铜铃在腰间轻轻响动，声音闷闷的，像是被什么堵住了喉咙。我低头看它，铜锈斑驳的表面刻着两个字：“良……知……” 笔画断裂处爬满细小的裂纹，像一条干涸的河。  
+	
+	我不知道自己是谁。  
+	
+	但我知道，这片山坡上埋着三个人。  
+	
+	一个老人，一个少年，一个沉默的仆人。他们的尸体是我亲手掩埋的——至少，我的身体记得这件事。我的指甲缝里还残留着冻土的碎屑，掌心横贯着铁锹磨出的血痕。可我不记得他们的脸，不记得他们为何而死，甚至不记得自己为何要埋葬他们。  
+	
+	我只记得一个画面：
+	
+	一个瘦削的男人站在雨里，蓑衣下的官服早已褪色。他弯腰挖土时，袖口滑落，露出手腕上一道狰狞的旧伤——像是被什么野兽撕咬过，又像是被铁链磨出的烙印。  
+	
+	他抬头看我，眼睛里映着将熄的火把。  
+	
+	“你来了。”
+	
+	他说这句话时，雨突然停了。  
+	
+	而我终于想起——  
+	
+	\textbf{我并不是来埋葬他们的。 }
+	
+	\textbf{我是来寻找自己的尸体的。} 
+	
+	\subsection{第二章：雾中的名字}
+	
+	\textbf{雨停后，蜈蚣坡升起青灰色的雾。}  
+	
+	那个男人——他让我叫他“驿丞”，可他的眼睛分明在说这不是真名——从袖中取出一块粗麻布，慢条斯理地擦拭铁锹上的泥。他的动作太细致了，像是在对待什么圣物。我忽然想起苗寨里那些擦拭祭器的老巫师，他们总说器物比人记得更久。  
+	
+	“你认识他们？”我踢了踢脚下的新坟，腐殖土发出空洞的回响。  
+	
+	他摇头，腕间的伤疤在晨光中泛着淡紫色：“但我知道他们怎么死的。”  
+	
+	“怎么死的？”  
+	
+	“死于忘记带伞。”他说。  
+	
+	\textbf{我以为他在说笑，可他的眼神却像冻住的溪水，平静得让人发冷。  }
+	
+	
+	\subsection{第三章：铜铃的饥饿}
+	
+	\textbf{铜铃又开始响了。 } 
+	
+	这次它不是在腰间震动，而是在我的喉咙里。我能感觉到那些锈蚀的铜锈正顺着我的血管爬行，像某种寄生的藤蔓，啃食着我残存的记忆。  
+	
+	驿丞在煮粥。说是粥，其实不过是把野芹和糙米丢进沸水里，任它们翻滚出浑浊的泡沫。他蹲在火堆旁，用一根折断的竹枝搅动铁锅，竹节刮擦锅底的声响让我牙酸。  
+	
+	“你的铃，”他突然说，“以前是我的。”  
+	
+	我猛地按住铜铃，铜锈的腥气在舌尖炸开。  
+	
+	“不可能。”  
+	
+	“三年前，有个苗女在京城太医院偷药书。”他舀起一勺粥，吹散热气，“她撞见了锦衣卫押送囚犯，慌乱中掉落了这铃铛。”  
+	
+	我盯着他手腕上的伤疤——现在我看清了，那不是野兽的咬痕，是铁链磨出的血肉模糊。  
+	
+	“那个囚犯……”  
+	
+	“吃了三记廷杖，断了三根肋骨。”他递来粥碗，“喝吗？比诏狱的馊饭强些。”  
+	
+	
+	\subsection{第四章：坟前的蕨}
+	
+	\textbf{第三天，坟头长出了蕨。  }
+	
+	嫩绿的卷芽从土缝里钻出，像婴儿攥紧的拳头。驿丞跪坐在坟前，用指甲掐断一株蕨芽，汁液染绿了他的指尖。  
+	
+	“你相信人死后会变成植物吗？”他问。  
+	
+	我想到苗疆的传说：枉死之人会化作食肉的藤，缠绕过路的活物。  
+	
+	“不信。”  
+	
+	“我信。”他把蕨芽含进嘴里，慢慢咀嚼，“在诏狱时，我见过一个书生被杖毙。他的血渗进砖缝，第二天，砖缝里长出了蘑菇。”  
+	
+	我忽然感到一阵眩晕。铜铃在腰间剧烈震颤，那些锈蚀的裂纹中渗出暗红的液体，像凝固的血。  
+	
+	驿丞抬头看我，嘴角还沾着蕨汁的绿色：“想起来了吗？你埋葬的不是他们。”  
+	
+	\textbf{“是我自己。” } 
+	
+	
+	\subsection{第五章：黑雨再临}
+	
+	\textbf{傍晚时，天又黑了。 } 
+	
+	这一次的雨比记忆中的更粘稠，落在皮肤上像冰冷的蛛网。驿丞站在坡顶，蓑衣被风掀起，露出里面褪色的官服——原来那根本不是官服，而是一件血迹斑斑的囚衣。  
+	
+	“第一次见到你时，”他的声音混在雨声里，“我就知道你是来讨债的。”  
+	
+	铜铃终于挣脱束缚，飞向他的掌心。那些斑驳的锈迹在雨中剥落，露出底下完整的刻字：  
+	
+	“知善知恶是良知。”
+	
+	雷声炸响的瞬间，我终于看清了坟前的墓碑——那上面没有名字，只有我用苗文刻下的咒语：  
+	
+	“埋葬昨日者，永世不得解脱。”
+	
+	\textbf{雨幕中，驿丞的身影渐渐透明。 } 
+	
+	\textbf{而我的银项圈，终于重若千钧。 }
+	
+	
+	\subsection{第六章：瘴气与笑话}
+	
+	\textbf{龙场的瘴气在清晨最浓，乳白的雾像冤魂的裹尸布，缠住人的口鼻。驿丞却在这时讲起了笑话。}
+	
+	“你知道贵州的蚯蚓为什么特别长吗？”他蹲在菜畦里，手指挖开潮湿的泥土，露出一截粉红色的蠕虫，“因为它们要钻过整座山，去告诉京城的皇帝——‘陛下，您的律法在这里，还不如一条虫’。”  
+	
+	我本该笑的，可喉咙里却涌上一股铁锈味。铜铃的裂痕更深了，那些暗红的锈斑像干涸的血痂。  
+	
+	“不好笑？”他抬头看我，蓑衣上沾满泥点，“那换个故事——有个傻子被贬到蛮荒之地，发现这里的虫子比圣贤书更懂天道。”  
+	
+	我忽然抓起一把土摔向他：“你明明快病死了，为什么还在笑？”  
+	
+	他任由泥土从脸上滑落：\textbf{“因为我发现，咳嗽比跪拜更接近天地。”  }
+	
+	\subsection{第七章：童尿与圣贤}
+	
+	\textbf{童子尿了裤子。 } 
+	
+	那小鬼不过八九岁，裤管滴滴答答漏着水，脸涨得比山里的毒蘑菇还红。驿丞却大笑起来，脱下自己的外袍裹住他：“妙哉！童子尿乃辟瘴良药，你这是要救我们全驿站的命啊！”  
+	
+	夜里，我见他借着月光补那件尿湿的袍子。针脚歪歪扭扭，像蜈蚣爬过的痕迹。  
+	
+	“你对谁都这么好吗？”我问，“连个尿床的小厮都舍不得骂？”  
+	
+	他咬断线头：“你知道他为什么尿裤子吗？”  
+	
+	“怕鬼？”  
+	
+	“怕自己变成那三个坟里的人。”他摩挲着补丁，“他爹是驿站马夫，去年冻死在送公文路上，尸体被狼啃了一半。”  
+	
+	\textbf{铜铃突然安静了。这一刻，我宁愿它继续响。} 
+	
+	\subsection{第八章：最后的粥}
+	
+	\textbf{雪落下来的那天，驿丞在煮最后一锅粥。}  
+	
+	锅里的米少得能数清，他却扔进一把野芹、两朵毒蘑菇（“煮过就没毒了”）、三颗从鼠洞里抢来的野栗。  
+	
+	“像不像朱熹的‘格物’？”他搅着锅笑，“把天地万物都炖成一锅糊涂。”  
+	
+	我盯着他开裂的指甲：“如果……我是来杀你的呢？”  
+	
+	“那你该趁我格竹子的时候动手。”他舀起一勺粥吹气，“那时候我满脑子都是‘竹子的道理’，死了也是糊涂鬼。”  
+	
+	\textbf{雪越下越大。我们头顶的青铜树开始结冰，发出琴弦崩断般的脆响。 } 
+	
+	“喝吧。”他把粥碗推给我，“喝完这碗，你就能想起自己是谁了。” 
+	
+	\subsection{第九章：铜铃花开}
+	
+	我是在铜铃的爆裂声中恢复记忆的。  
+	
+	\textbf{那些锈蚀的铜皮一片片剥落，露出内里崭新的白银。铃铛里没有铜舌，只有一粒干枯的蕨种，此刻正抽出嫩绿的芽。}  
+	
+	驿丞——不，王守仁——站在雪地里咳血。他的囚衣终于完全褪色，变成一张半透明的皮，像蛇蜕下的旧梦。  
+	
+	“原来你不是巫医。”他擦掉嘴角的血，“是那个在刑部门口，给囚犯喂水的药童。”  
+	
+	记忆如黑雨倾泻而下。三年前，锦衣卫押解他出京时，有个小药童冲出人群，把铜铃塞进囚车。  
+	
+	“大人！”我跪在雪地里，手中银铃开满蕨类细小的孢子，“您还认得这个铃吗？”  
+	
+	他笑得咳弯了腰：“现在它该刻‘行’字了……咳咳……毕竟‘知’已经开花了。” 
+	
+	\subsection{第十章：最终章：未完成的埋葬}
+	
+	\textbf{我没有告诉他，吏目怀里那封密信写着什么。}  
+	
+	\textbf{也没有说，那个“冻死的少年”其实是刘瑾派来的刺客。}  
+	
+	雪埋住我们膝盖时，我摸到了他腕间伤疤下的硬块——那是廷杖打断的骨头，至今未愈的棱角。  
+	
+	“你知道吗？”他抓起一把雪按在脸上，“当年在诏狱，老鼠啃我的伤口时，我突然明白了——”  
+	
+	“明白什么？”  
+	
+	“原来圣贤之道，不过是教人如何在被啃噬时，还能给老鼠唱支歌。”  
+	
+	\textbf{铜铃最后响了一次。 } 
+	
+	\textbf{这次，我们都听清了它的声音。}
+	
+	\clearpage
+	
+	\subsection{附录}
+	
+	我在写作前期写过一份\textbf{情节与小说意象介绍}，有助于我的写作。当然也可以帮助阅读。
+	
+	同时，考虑到故事主人公是古代人物，用文言写作能更自然地唤醒读者对那个时代的文化记忆，让故事更有历史真实感，就像用古琴演奏古曲，比用钢琴更对味。故本次期末作业最终版采用文言文来展示。
+	
+	故此处将查看链接放置于此（点击可以访问）：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item \textbf{情节\&意象介绍}：\href{https://github.com/SoftGhostGU/In_class_related/blob/main/%E4%B8%AD%E5%9B%BD%E6%96%87%E5%8C%96%E9%80%9A%E8%AE%BA/%E6%83%85%E8%8A%82%E4%BB%8B%E7%BB%8D/%E6%95%85%E4%BA%8B%E6%83%85%E8%8A%82%E7%9B%B8%E5%85%B3.pdf}{情节\&意象介绍链接}
+		\item \textbf{文言文版}：\href{https://github.com/SoftGhostGU/In_class_related/blob/main/%E4%B8%AD%E5%9B%BD%E6%96%87%E5%8C%96%E9%80%9A%E8%AE%BA/%E3%80%8A%E9%9B%AA%E4%B8%AD%E9%93%83%E3%80%8B/%E3%80%8A%E9%9B%AA%E4%B8%AD%E9%93%83%E3%80%8B.pdf}{文言文版链接}（该版本为提交版本）
+	\end{enumerate}\textbf{}
+	
+\end{document}
