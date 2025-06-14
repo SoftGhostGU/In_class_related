@@ -1,0 +1,251 @@
+\documentclass{article}
+
+% 导入宏包
+\usepackage{fancyhdr}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[a4paper, body={18cm,22cm}]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amstext,wasysym,enumerate,graphicx}
+\usepackage{float,abstract,booktabs,indentfirst,amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+
+
+% 设置段落
+\renewcommand\arraystretch{1.4}
+\setlength{\parindent}{2em}
+\setCJKmonofont{黑体}
+
+% 设置高亮文字
+\newtcbox{\mybox}[1][red]
+{on line, arc = 0pt, outer arc = 0pt,
+	colback = #1!10!white, colframe = #1!50!black,
+	boxsep = 0pt, left = 1pt, right = 1pt, top = 2pt, bottom = 2pt,
+	boxrule = 0pt, bottomrule = 1pt, toprule = 1pt}
+
+% 配置代码显示
+\lstset{
+	xleftmargin = 3em,
+	xrightmargin = 3em,
+	aboveskip = 1em,
+	backgroundcolor = \color{white},
+	basicstyle = \small\ttfamily,
+	rulesepcolor = \color{gray},
+	breaklines = true,
+	numbers = left,
+	numberstyle = \small,
+	numbersep = -14pt,
+	keywordstyle = \color{purple}\bfseries,
+	commentstyle = \color{green!60!black}, % 修改注释颜色
+	stringstyle = \color{red!60!green!90!blue!90},
+	morekeywords = {ASSERT, int64_t, uint32_t},
+	moreemph = {ASSERT, NULL},
+	emphstyle = \color{red}\bfseries,
+	moreemph = [2]{int64\_t, uint32\_t, tid\_t, uint8\_t, int16\_t, uint16\_t, int32\_t, size\_t, bool},
+	emphstyle = [2]\color{purple}\bfseries,
+	frame = shadowbox,
+	showspaces = false,
+	columns = fixed
+	morecomment = [l][\color{green!60!black}]{+}, % 设置以+开头的代码行为绿色
+}
+
+%--------------------页眉--------------------%
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{10235101527~顾翌炜}
+\fancyhead[C]{中国文化通论期末报告 - 情节介绍}
+\fancyfoot[C]{-\thepage-}
+\renewcommand{\headrulewidth}{1.5pt}
+
+%--------------------标题--------------------%
+
+\begin{document}
+	\begin{center}
+		{\Large{\textbf{\heiti 《雪中铃》}}}
+	\end{center}
+	
+	\section{故事基本内容}
+	
+	\subsection{时间（液态的感知）}
+	
+	\begin{enumerate}[noitemsep, label={· }]
+		\item \textbf{主观时间}： 我的记忆如雨季的溪流时断时续（用不同字体区分记忆碎片）
+		\item \textbf{历史锚点}：
+		
+		\begin{enumerate}[noitemsep, label={· }]
+			\item 正德四年霜降（真实瘗旅日期）
+			\item 苗历“忌言日”（你施术自噬的那天）
+		\end{enumerate}\textbf{}
+		
+	\end{enumerate}\textbf{}
+	
+	\subsection{地点（心象化的场景）}
+	
+	\begin{enumerate}[noitemsep, label={· }]
+		\item \textbf{蜈蚣坡}：在我眼中是巨型蜈蚣化石的脊背（每节骨缝里埋着不同时期的你）
+		\item \textbf{驿站菜畦}：王阳明种萝卜的地方，我总幻觉下面埋着京城带来的《大明律》
+	\end{enumerate}\textbf{}
+	
+	\subsection{人物（我与他的光影）}
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{lll}
+			\hline
+			维度 & 王阳明（我眼中的他） & 阿蕈（我的自我认知）  \\ \hline
+			存在形态 & 实体却如镜中倒影 & 虚体却比肉身更真实  \\ 
+			语言特征 & 说话时总拂过衣袖（扫去概念尘埃） & 语言碎片化，常混杂苗语古谣  \\ 
+			象征物 & 总在修补的破靴（象征“格物”困境） & 会随着记忆增减重量的银项圈  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\section{故事情节}
+	
+	\subsection{起因（灵魂的迷雾）}
+	
+	\textbf{“我醒来时，手里攥着一把带血的草药，却想不起它是救人的白芨，还是杀人的断肠草。”}
+	
+	\begin{enumerate}[noitemsep, label={· }]
+		\item 我是苗疆巫医阿蕈（名字意为“遗忘之草”），因阻止土司焚烧汉人医书被咒术反噬，记忆破碎，只记得破碎的画面：
+		
+			\begin{enumerate}[noitemsep, label={· }]
+				\item 一个穿官服的男人在暴雨中掩埋尸体
+				\item 铜铃上“良知”二字在火中闪烁
+				\item 有人对你说：“你葬的不是死人，是未醒的活人”
+			\end{enumerate}\textbf{}
+	\end{enumerate}\textbf{}
+	
+	\subsection{经过（镜像中的觉醒）}
+	
+	\begin{enumerate}[noitemsep, label={· }]
+		\item 第一阶段：误认
+		
+		\begin{enumerate}[noitemsep, label={· }]
+			\item 我在蜈蚣坡撞见王阳明埋葬吏目，他蓑衣上的冰碴让你莫名流泪
+			\item 我断言：“这三人生前中了记忆蛊，需开棺取脑施术”——他按住我的手腕：\textbf{“小伙子，他们只是冻死的凡人。”}
+		\end{enumerate}\textbf{}
+		
+		\item 第二阶段：共瘗
+		
+		\begin{enumerate}[noitemsep, label={· }]
+			\item 他教我用汉礼挖坟时，我的手指突然自行摆出苗疆祭祀手印（身体记忆苏醒）
+			\item 夜里我发热呓语，他守着火堆轻念：\textbf{“心若不安，遍地皆是龙场；心安处，瘴雾亦作青云。”}
+		\end{enumerate}\textbf{}
+		
+		\item 第三阶段：裂变
+		
+		\begin{enumerate}[noitemsep, label={· }]
+			\item 我发现那具“吏目尸体”腰间的玉佩，竟和我梦中反复出现的图案一致
+			\item 王阳明将玉佩对着月光：“你看，裂纹里长出蕨草了——死境中有生机，正如迷途中有觉路。”
+		\end{enumerate}\textbf{}
+		
+	\end{enumerate}\textbf{}
+	
+	\subsection{结果（永恒的未完成）}
+	
+	\begin{enumerate}[noitemsep, label={· }]
+		\item 最终我没有恢复全部记忆，但决定留在龙场
+		
+		\begin{enumerate}[noitemsep, label={· }]
+			\item 清晨：我教苗童用草药汁临摹《瘗旅文》
+			\item 黄昏：王阳明在你的铜铃上补刻“知行”二字
+		\end{enumerate}\textbf{}
+		
+		\item 最后一个场景
+		
+		\begin{enumerate}[noitemsep, label={· }]
+			\item \textbf{“雪落在当年埋尸的山坡上，我和他成了彼此的记忆容器。”}
+		\end{enumerate}\textbf{}
+		
+	\end{enumerate}\textbf{}
+	
+	\section{意象系统解析}
+	
+	\subsection{核心意象群}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{lll}
+			\hline
+			意象 & 物质属性 & 象征意义 \\ \hline
+			铜铃 & \makecell[l]{锈蚀的苗疆法器，刻"良知"二字；\\阿蕈记忆复苏的关键触发器} & 被遮蔽的本心/汉苗文化碰撞的伤口   \\ 
+			黑雨 & \makecell[l]{含铁锈味的酸性雨水；\\每次记忆闪回时的环境背景} & 历史暴力（廷杖/贬谪）的液态记忆   \\ 
+			蕨类植物 & \makecell[l]{从尸体裂缝萌发的嫩芽；\\坟头、玉佩裂纹、铜铃内部} & 绝境中的顿悟/心学"致良知"的生命力   \\ \hline
+			
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{lll}
+			\hline
+			意象 & 物质属性 & 象征意义  \\ \hline
+			银项圈 & \makecell[l]{随记忆增减重量的苗银首饰；\\阿蕈身份认知变化的标尺} & 文化认同的度量衡/被篡改的历史重量   \\ 
+			瘴气 & \makecell[l]{乳白色致幻雾气；\\王阳明讲笑话时的环境反讽} & 理学教条的窒息感/未被思想照亮的精神迷雾   \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{身体意象群}
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{lll}
+			\hline
+			意象 & 物质表现 & 哲学映射  \\ \hline
+			腕间伤疤 & 枷锁磨出的紫红色陈旧伤 & 体制暴力在思想者肉体上的铭刻  \\ 
+			咳出的血沫 & 肺疾导致的粉红色泡沫 & 思想如同内出血，在体内自我消化而后绽放  \\ 
+			童子尿 & 温热的淡黄色液体浸透衣袍 & 圣贤之道从"高高在上"到"俯就卑微"的隐喻  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{生活器物意象群}
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{lll}
+			\hline
+			意象 & 历史原型 & 心学解构  \\ \hline
+			破蓑衣 & 龙场驿丞官服替代品 & 剥离社会身份后的本真存在状态  \\ 
+			糙米粥 & 掺野芹毒菇的生存食物 & "格物"的终极形态——将苦难熬煮成滋养  \\ 
+			竹枝笔 & 折断后用来书写的天然工具 & 思想不依赖精致载体（朱熹式穷理→阳明式顿悟） \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\subsection{超现实意象群}
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{lll}
+			\hline
+			意象 & 魔幻表现 & 现实对应  \\ \hline
+			青铜树 & 会结冰爆裂的祭祀神树 & 程朱理学体系僵化结构的象征  \\ 
+			记忆蛊 & 吞噬特定记忆的透明蠕虫 & 权力对历史叙事的系统性抹除  \\ 
+			血铃铛 & 锈蚀到极致时渗出人血的铜铃 & 思想传承中的疼痛性分娩 \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\clearpage
+	
+	\subsection{附录}
+	
+	写作前期使用白话文方式写了这篇文章，但是考虑到故事主人公是古代人物，用文言写作能更自然地唤醒读者对那个时代的文化记忆，让故事更有历史真实感，就像用古琴演奏古曲，比用钢琴更对味。故本文最终版采用文言文来展示。
+	
+	故此处将两个版本的查看链接放置于此（点击可以访问）：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item \textbf{白话文版}：\href{https://github.com/SoftGhostGU/In_class_related/blob/main/%E4%B8%AD%E5%9B%BD%E6%96%87%E5%8C%96%E9%80%9A%E8%AE%BA/%E3%80%8A%E9%9B%AA%E4%B8%AD%E9%93%83%E3%80%8B-%E7%99%BD%E8%AF%9D%E6%96%87%E7%89%88/%E3%80%8A%E9%9B%AA%E4%B8%AD%E9%93%83%E3%80%8B-%E5%8E%9F%E6%96%87%E7%89%88.pdf}{原文（白话文版）链接}
+		\item \textbf{文言文版}：\href{https://github.com/SoftGhostGU/In_class_related/blob/main/%E4%B8%AD%E5%9B%BD%E6%96%87%E5%8C%96%E9%80%9A%E8%AE%BA/%E3%80%8A%E9%9B%AA%E4%B8%AD%E9%93%83%E3%80%8B/%E3%80%8A%E9%9B%AA%E4%B8%AD%E9%93%83%E3%80%8B.pdf}{文言文版链接}（该版本为提交版本）
+	\end{enumerate}\textbf{}
+	
+\end{document}
