@@ -23,13 +23,13 @@
 2️⃣ **OS实验**：
 - project1：[操作系统实验一 实验步骤](https://www.cnblogs.com/laiy/p/pintos_project1_thread.html)（这篇文章非常详细，可以跟着自己做一遍）  
 - project2：[操作系统实验二 代码](https://github.com/ChristianJHughes/pintos-project2)   
-- 代码和实验报告：
+- 其他的参考：
 	- [两次实验的指南+总结](https://zhuanlan.zhihu.com/p/104497182)（也是ecnu的学长写的，也是很详细）  
 	- [pintos实验的代码](https://github.com/CCXXXI/pintos)（代码能力强的同学可以直接阅读代码来理解实验）  
 	- [project-2的代码](https://github.com/Wang-GY/pintos-project2/)（里面还包含了一份简易的实验报告）
 
-3️⃣ **马原答案**（实际上是所有mooc平台上的答案，这里都有）：  
-- https://ginnnnnn.top/mooc/  
+3️⃣ **马原答案**：  
+- [gins网址](https://ginnnnnn.top/mooc/)  （实际上是所有mooc平台上的答案，这里都有）
 
 ### ⏳ 将会持续更新\~如果能帮助到你的话记得留下一个免费的star哦\~  
 
