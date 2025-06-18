@@ -1,0 +1,375 @@
+\documentclass{article}
+
+% 导入宏包
+\usepackage{fancyhdr}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[a4paper, body={18cm,22cm}]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amstext,wasysym,enumerate,graphicx}
+\usepackage{float,abstract,booktabs,indentfirst,amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+
+
+% 设置段落
+\renewcommand\arraystretch{1.4}
+\setlength{\parindent}{2em}
+\setCJKmonofont{黑体}
+
+% 设置高亮文字
+\newtcbox{\mybox}[1][red]
+{on line, arc = 0pt, outer arc = 0pt,
+	colback = #1!10!white, colframe = #1!50!black,
+	boxsep = 0pt, left = 1pt, right = 1pt, top = 2pt, bottom = 2pt,
+	boxrule = 0pt, bottomrule = 1pt, toprule = 1pt}
+
+% 配置代码显示
+\lstset{
+	xleftmargin = 3em,
+	xrightmargin = 3em,
+	aboveskip = 1em,
+	backgroundcolor = \color{white},
+	basicstyle = \small\ttfamily,
+	rulesepcolor = \color{gray},
+	breaklines = true,
+	numbers = left,
+	numberstyle = \small,
+	numbersep = -14pt,
+	keywordstyle = \color{purple}\bfseries,
+	commentstyle = \color{green!60!black}, % 修改注释颜色
+	stringstyle = \color{red!60!green!90!blue!90},
+	morekeywords = {ASSERT, int64_t, uint32_t},
+	moreemph = {ASSERT, NULL},
+	emphstyle = \color{red}\bfseries,
+	moreemph = [2]{int64\_t, uint32\_t, tid\_t, uint8\_t, int16\_t, uint16\_t, int32\_t, size\_t, bool},
+	emphstyle = [2]\color{purple}\bfseries,
+	frame = shadowbox,
+	showspaces = false,
+	columns = fixed
+	morecomment = [l][\color{green!60!black}]{+}, % 设置以+开头的代码行为绿色
+}
+
+%--------------------页眉--------------------%
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyhead[C]{华东师范大学软件工程学院作业}
+\fancyfoot[C]{-\thepage-}
+\renewcommand{\headrulewidth}{1.5pt}
+
+%--------------------标题--------------------%
+
+\begin{document}
+	
+	\begin{center}
+		{\Large{\textbf{\heiti 软件工程学院数据库系统及其应用作业}}}
+		\begin{table}[htb]
+			\flushleft
+			\begin{tabular}{p{0.4\linewidth}p{0.27\linewidth}p{0.28\linewidth}}\\
+				\textbf{实验课程}：数据库系统及其应用  & \textbf{年级}：2023级       & \textbf{姓名}：顾翌炜  \\
+				\textbf{作业编号}：Week-14-15    & \textbf{学号}：10235101527 & \textbf{作业日期}：2025/06/11  \\
+			\end{tabular}
+		\end{table}
+	\end{center}
+	\rule{\textwidth}{2pt}
+	
+	\setlength{\parindent}{2em}
+	
+	\section*{1 冲突可串行化与优先图 (Conflict Serializability)}
+	
+	\textbf{背景知识}：一个调度（Schedule）是冲突可串行化的，当且仅当它的优先图（Precedence Graph）是无环的 。优先图中，节点代表事务，如果事务 Ti 的一个操作与 Tj 的一个操作冲突，并且 Ti 的操作先于 Tj 执行，则在图中画一条从 Ti 指向 Tj 的边 。
+	
+	\textbf{问题}：给定以下包含事务 T1 和 T2 的调度 S
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|l|}
+			\hline
+			时间 & T1 & T2  \\ \hline
+			1 & read(A) &   \\ \hline
+			2 & A = A - 100 &   \\ \hline
+			3 & ~ & read(A)  \\ \hline
+			4 & ~ & A = A * 1.1  \\ \hline
+			5 & ~ & write(A)  \\ \hline
+			6 & write(A) &   \\ \hline
+			7 & read(B) &   \\ \hline
+			8 & ~ & read(B)  \\ \hline
+			9 & ~ & B = B + 100  \\ \hline
+			10 & ~ & write(B)  \\ \hline
+			11 & B = B - 10 &   \\ \hline
+			12 & write(B) &   \\ \hline
+			13 & commit &   \\ \hline
+			14 & ~ & commit  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\textbf{要求}：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 找出调度 S 中所有的冲突操作对。
+		
+		\item 画出该调度 S 的优先图（Precedence Graph）。
+		
+		\item 判断该调度 S 是否是冲突可串行化的，并解释你的结论。如果可串行化，请给出一个与之等价的串行调度。
+	\end{enumerate}\textbf{}
+	
+	\section*{1 解答}
+	
+	\textbf{冲突操作对}
+	
+	冲突操作的定义：两个操作属于不同事务，作用于同一数据项，且至少有一个是写操作（write）。
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|}
+			\hline
+			冲突操作对 & 冲突原因  \\ \hline
+			(T1: read(A), T2: write(A)) & T1 读 A 后，T2 写 A（时间顺序：T1(1) → T2(5)）  \\ \hline
+			(T1: write(A), T2: read(A)) & T2 读 A 后，T1 写 A（时间顺序：T2(3) → T1(6)）  \\ \hline
+			(T1: write(A), T2: write(A)) & T1 和 T2 都对 A 写（时间顺序：T2(5) → T1(6)）  \\ \hline
+			(T1: read(B), T2: write(B)) & T2 读 B 后，T1 写 B（时间顺序：T2(7) → T1(10)）  \\ \hline
+			(T1: write(B), T2: read(B)) & T2 写 B 后，T1 读 B（时间顺序：T2(8) → T1(12)）  \\ \hline
+			(T1: write(B), T2: write(B)) & T2 和 T1 都对 B 写（时间顺序：T2(10) → T1(12)）  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{tikzpicture}[
+		node distance=3cm,
+		transaction/.style={circle, draw, minimum size=1cm, font=\large}
+		]
+		% 定义节点（事务）
+		\node[transaction] (T1) {T1};
+		\node[transaction, right of=T1] (T2) {T2};
+		
+		% 绘制双向边（表示环）
+		\draw[-{Stealth[scale=1.2]}, thick] (T1) to [bend left=20] node[above] {\small \texttt{}} (T2);
+		\draw[-{Stealth[scale=1.2]}, thick] (T2) to [bend left=20] node[below] {\small \texttt{}} (T1);
+		
+		% 添加标题
+		\node[above=0.5cm of T1, font=\bfseries] {优先图（Precedence Graph）};
+	\end{tikzpicture}
+	
+	\textbf{是否可串行化}
+	
+	由于优先图里存在环T1 → T2 → T1，所以不可串行化
+	
+	\section*{2 严格两阶段锁协议 (Strict 2PL)}
+	
+	\textbf{背景知识}: 两阶段锁协议 (2PL) 分为增长阶段（只加锁，不解锁）和缩减阶段（只解锁，不加锁）。严格两阶段锁协议 (Strict 2PL) 要求事务必须持有其所有排他锁 (Exclusive Lock)直到事务提交或中止 ，这可以避免级联回滚 。大多数数据库实现的都是严格两阶段锁协议 。
+	
+	\textbf{问题}: 假设数据库系统采用严格两阶段锁协议 (Strict 2PL)，并且锁管理器使用以下锁相容性矩阵：
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|l|}
+			\hline
+			(T1 持有) & S (共享锁) & X (排他锁)  \\ \hline
+			(T2 请求) S & 兼容 (Yes) & 不兼容 (No)  \\ \hline
+			(T2 请求) X & 不兼容 (No) & 不兼容 (No)  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	现有两个事务 T1 和 T2：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item T1: read(A), write(A), commit
+		\item T2: read(A), read(B), write(B), commit
+	\end{enumerate}\textbf{}
+	
+	\textbf{要求}: 描述当 T1 和 T2 按以下顺序交叉执行时，锁的申请（lock-S/lock-X）、授予（granted）、拒绝/等待（denied/wait）和释放（unlock）的过程。请清晰地列出每一步操作和锁的状态。
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			时间 & 操作 & T1 的动作 & T2 的动作 & 锁管理器状态  \\ \hline
+			1 & T1 & read(A) & ~ &   \\ \hline
+			2 & T2 & ~ & read(A) &   \\ \hline
+			3 & T1 & write(A) & ~ &   \\ \hline
+			4 & T2 & ~ & read(B) &   \\ \hline
+			5 & T2 & ~ & write(B) &   \\ \hline
+			6 & T1 & commit & ~ &   \\ \hline
+			7 & T2 & ~ & commit &   \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	
+	\section*{2 解答}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|l|l|l|l|l|l|}
+			\hline
+			时间 & 操作 & T1 的动作 & T2 的动作 & 锁管理器状态 & 说明  \\ \hline
+			1 & T1 & read(A) & ~ & A: S(T1) & T1 获取 A 的 S 锁。 \\ \hline
+			2 & T2 & ~ & read(A) & A: S(T1), S(T2) & S 锁兼容，T2 也获取 A 的 S 锁。 \\ \hline
+			3 & T1 & write(A) & ~ & A: S(T2), X(T1) 等待 & \makecell[l]{T1 需升级为 X 锁，但 T2 持有 S 锁，\\不兼容。T1 阻塞，等待 T2 释放 S 锁}。 \\ \hline
+			4 & T2 & ~ & read(B) &  A: S(T2), X(T1) 等待；B: S(T2) & T2 获取 B 的 S 锁。 \\ \hline
+			5 & T2 & ~ & write(B) & A: S(T2), X(T1) 等待；B: X(T2) & T2 升级 B 的锁为 X 锁。 \\ \hline
+			6 & T1 & commit & ~ & A: S(T2), X(T1) 释放；B: X(T2) & T1 提交后仅释放自己的 S(A) \\ \hline
+			7 & T2 & ~ & commit & A: 无锁；B: 无锁(全释放) & T2 提交后释放所有锁 \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\section*{3 使用日志进行故障恢复 (Recovery with Log)}
+	
+	\textbf{背景知识}: 现代数据库普遍采用预写日志（Write-Ahead Logging, WAL）策略进行故障恢复。 当系统崩溃后，恢复管理器通过分析（Analysis）、重做（Redo）和 撤销（Undo）三个阶段来恢复数据 。
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item Redo 阶段: 重放所有已提交事务以及未完成事务的更新，以确保已提交的修改被持久化 。
+		\item Undo 阶段: 回滚所有在崩溃时仍处于活动状态（未提交或未中止）的事务，以保证事务的原子性 
+	\end{enumerate}\textbf{}
+	
+	\textbf{问题}: 给定以下一份简化的数据库日志，系统在日志末尾处发生崩溃。
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|l|}
+			\hline
+			LSN & 日志记录 & 描述  \\ \hline
+			01 & <T1, BEGIN> & T1 开始  \\ \hline
+			02 & <T2, BEGIN> & T2 开始  \\ \hline
+			03 & <T1, A, 10, 20> & T1 将 A 从 10 改为 20  \\ \hline
+			04 & <T3, BEGIN> & T3 开始  \\ \hline
+			05 & <T2, B, 50, 60> & T2 将 B 从 50 改为 60  \\ \hline
+			06 & <T1, COMMIT> & T1 提交  \\ \hline
+			07 & <CHECKPOINT> & 检查点  \\ \hline
+			08 & <T2, C, 80, 90> & T2 将 C 从 80 改为 90  \\ \hline
+			09 & <T3, D, 40, 30> & T3 将 D 从 40 改为 30  \\ \hline
+			10 & <T2, COMMIT> & T2 提交  \\ \hline
+			11 & <T3, A, 20, 10> & T3 将 A 从 20 改为 10  \\ \hline
+			~ & <-- 系统崩溃 -- &   \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\textbf{要求}: 根据上述日志，描述在系统重启恢复期间：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 哪些事务需要被 Undo？
+		\item 哪些日志记录 (根据 LSN) 需要被 Redo？
+		\item 简要说明为什么 T1 事务不需要任何操作。
+	\end{enumerate}\textbf{}
+	
+	\section*{3 解答}
+	
+	根据日志记录和崩溃时间点（LSN 11 之后），各事务的状态如下：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item T1: 已提交（LSN 06）。
+		\item T2: 已提交（LSN 10）。
+		\item T3: 未提交（无 COMMIT 记录，最后操作在 LSN 11）。
+	\end{enumerate}\textbf{}
+	
+	\textbf{UNDO和REDO}
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item \textbf{UNDO}：
+		
+		所以需要被undo的事务是：T3唯一在崩溃时仍活跃（未提交）的事务，其修改必须回滚
+		
+		首先undo LSN 11（<T3, A, 20, 10>）：将 A 从 10 改回 20。
+		
+		再undo LSN 09（<T3, D, 40, 30>）：将 D 从 30 改回 40。
+		
+		\item \textbf{REDO}：
+		
+		T1已经提交，T3需要undo，只有T2需要redo，而检查点之后只有LSN 08是T2的，所以需要redo T2的LSN 08
+	\end{enumerate}\textbf{}
+	
+	\textbf{T1不需要操作的原因}
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item T1 在检查点之前已提交（LSN 06），且检查点（LSN 07）会确保其修改已持久化到磁盘。
+		\item 恢复时无需对已提交且检查点确认的事务执行任何操作（既不需要 Redo，也不需要 Undo）
+	\end{enumerate}\textbf{}
+	
+	
+	\section*{4 死锁检测与处理 (Deadlock Detection)}
+	
+	\textbf{背景知识}: 当多个事务循环等待对方持有的锁时，就会发生死锁 。数据库管理系统可以通过维护一个等待图 (Waits-for Graph) 来检测死锁 。如果等待图中存在一个环，则表示系统存在死锁 。
+	
+	\textbf{问题}: 考虑以下两个事务 T3 和 T4 的执行片段：
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|l|}
+			\hline
+			时间 & T3 & T4  \\ \hline
+			1 & lock-X(B) &   \\ \hline
+			2 & ... &   \\ \hline
+			3 & ... & lock-S(A)  \\ \hline
+			4 & ... & ...  \\ \hline
+			5 & ... & lock-S(B)  \\ \hline
+			6 & lock-X(A) & ...  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\textbf{要求}:
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 画出在时间点 6 时，系统的事务等待图 (Waits-for Graph)。
+		\item 判断此时系统是否处于死锁状态，并解释原因。
+		\item 如果存在死锁，请提出一种解除该死锁的方法 。
+	\end{enumerate}\textbf{}
+	
+	\section*{4 解答}
+	
+	\begin{table}[!ht]
+		\centering
+		\begin{tabular}{|l|l|l|l|}
+			\hline
+			事务 & 已持有的锁 & 正在请求的锁 & 阻塞原因  \\ \hline
+			T3 & X(B) & X(A) & T4 持有 S(A)，不兼容  \\ \hline
+			T4 & S(A) & S(B) & T3 持有 X(B)，不兼容  \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\begin{tikzpicture}[
+		node distance=3cm,
+		transaction/.style={circle, draw, minimum size=1cm, font=\large}
+		]
+		% 定义节点（事务）
+		\node[transaction] (T3) {T3};
+		\node[transaction, right of=T1] (T4) {T4};
+		
+		% 绘制双向边（表示环）
+		\draw[-{Stealth[scale=1.2]}, thick] (T3) to [bend left=20] node[above] {\small \texttt{}} (T4);
+		\draw[-{Stealth[scale=1.2]}, thick] (T4) to [bend left=20] node[below] {\small \texttt{}} (T3);
+		
+		% 添加标题
+		\node[above=0.5cm of T1, font=\bfseries] {等待图};
+	\end{tikzpicture}
+	
+	等待图中存在环（T3 ⇄ T4），表示事务互相等待对方释放锁，形成循环依赖，也就是死锁。
+	
+	\textbf{解决办法}：
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 选择牺牲者（Victim）：
+			\begin{enumerate}[noitemsep, label={· }]
+				\item 根据优先级、已执行时间或修改量选择一个事务中止（如回滚 T3 或 T4）。
+				\item 例如：中止 T4（因其可能持有较少的锁或执行时间较短）。
+			\end{enumerate}\textbf{}
+		\item 回滚牺牲者：
+			\begin{enumerate}[noitemsep, label={· }]
+				\item 释放牺牲者持有的所有锁（本例中若中止 T4，则释放 S(A)）。
+				\item T3 随后可获取 X(A)，继续执行。
+			\end{enumerate}\textbf{}
+		\item 重启事务：
+			\begin{enumerate}[noitemsep, label={· }]
+				\item 牺牲者（T4）稍后重新启动执行。
+			\end{enumerate}\textbf{}
+	\end{enumerate}\textbf{}
+	
+\end{document}
