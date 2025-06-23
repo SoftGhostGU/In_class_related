@@ -1,0 +1,239 @@
+\documentclass{article}
+
+% 导入宏包
+\usepackage{fancyhdr}
+\usepackage{ctex}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[a4paper, body={18cm,22cm}]{geometry}
+\usepackage{amsmath,amsthm,amssymb,amstext,wasysym,enumerate,graphicx}
+\usepackage{float,abstract,booktabs,indentfirst,amsmath}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{diagbox}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{makecell}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usetikzlibrary{positioning, arrows.meta}
+\usepackage[bookmarks=true, colorlinks, citecolor=blue, linkcolor=black]{hyperref}
+
+
+% 设置段落
+\renewcommand\arraystretch{1.4}
+\setlength{\parindent}{2em}
+\setCJKmonofont{黑体}
+
+% 设置高亮文字
+\newtcbox{\mybox}[1][red]
+{on line, arc = 0pt, outer arc = 0pt,
+	colback = #1!10!white, colframe = #1!50!black,
+	boxsep = 0pt, left = 1pt, right = 1pt, top = 2pt, bottom = 2pt,
+	boxrule = 0pt, bottomrule = 1pt, toprule = 1pt}
+
+% 配置代码显示
+\lstset{
+	xleftmargin = 3em,
+	xrightmargin = 3em,
+	aboveskip = 1em,
+	backgroundcolor = \color{white},
+	basicstyle = \small\ttfamily,
+	rulesepcolor = \color{gray},
+	breaklines = true,
+	numbers = left,
+	numberstyle = \small,
+	numbersep = -14pt,
+	keywordstyle = \color{purple}\bfseries,
+	commentstyle = \color{green!60!black}, % 修改注释颜色
+	stringstyle = \color{red!60!green!90!blue!90},
+	morekeywords = {ASSERT, int64_t, uint32_t},
+	moreemph = {ASSERT, NULL},
+	emphstyle = \color{red}\bfseries,
+	moreemph = [2]{int64\_t, uint32\_t, tid\_t, uint8\_t, int16\_t, uint16\_t, int32\_t, size\_t, bool},
+	emphstyle = [2]\color{purple}\bfseries,
+	frame = shadowbox,
+	showspaces = false,
+	columns = fixed
+	morecomment = [l][\color{green!60!black}]{+}, % 设置以+开头的代码行为绿色
+}
+
+%--------------------页眉--------------------%
+
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyhead[C]{华东师范大学软件工程学院作业}
+\fancyfoot[C]{-\thepage-}
+\renewcommand{\headrulewidth}{1.5pt}
+
+%--------------------标题--------------------%
+
+\begin{document}
+	
+	\begin{center}
+		{\Large{\textbf{\heiti 软件工程学院形式语言与自动机理论作业}}}
+		\begin{table}[htb]
+			\flushleft
+			\begin{tabular}{p{0.4\linewidth}p{0.27\linewidth}p{0.28\linewidth}}\\
+				\textbf{实验课程}：形式语言与自动机理论  & \textbf{年级}：2023级       & \textbf{姓名}：顾翌炜  \\
+				\textbf{实验编号}：ch-3-3    & \textbf{学号}：10235101527 & \textbf{作业日期}：2025/04/30  \\
+			\end{tabular}
+		\end{table}
+	\end{center}
+	\rule{\textwidth}{2pt}
+	
+	\section*{课后作业}
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 将如下下推自动机 $P = (\{p, q\}, \{0, 1\}, \{X, Z\}, \delta, p, Z)$
+		转化为一个等价的上下文无关文法。
+		\item 将该文法化简。
+		\item 将该文法转化为Chomsky范式形式。
+	\end{enumerate}\textbf{}
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{下推自动机的转移函数表}
+		\label{tab:transition}
+		\begin{tabular}{|c|c|c|c|c|c|c|}
+			\hline
+			& $0, Z$ & $0, X$ & $1, Z$ & $1, X$ & $\epsilon, Z$ & $\epsilon, X$ \\
+			\hline
+			$\to p$ & $--$ & $q, X$ & $p, XZ$ & $p, XX$ & $p, \epsilon$ & $--$ \\
+			\hline
+			$q$ & $p, Z$ & $--$ & $--$ & $q, \epsilon$ & $--$ & $--$ \\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	\section*{解答 1}
+	
+	\begin{itemize}
+		\item 起始符号定义：
+		$ S \rightarrow [pZp] \mid [pZq] $
+		
+		\item 根据转移函数 $\delta(p, 0, X) = \{(q, X)\}$：
+		\begin{itemize}
+			\item $[pXp] \rightarrow 0[qXp]$
+			\item $[pXq] \rightarrow 0[qXq]$
+		\end{itemize}
+		
+		\item 根据转移函数 $\delta(p, 1, Z) = \{(p, XZ)\}$：
+		\begin{itemize}
+			\item $[pZp] \rightarrow 1[pXp][pZp] \mid 1[pXq][qZp]$
+			\item $[pZq] \rightarrow 1[pXp][pZq] \mid 1[pXq][qZq]$
+		\end{itemize}
+		
+		\item 根据转移函数 $\delta(p, 1, X) = \{(p, XX)\}$：
+		\begin{itemize}
+			\item $[pXp] \rightarrow 1[pXp][pXp] \mid 1[pXq][qXp]$
+			\item $[pXq] \rightarrow 1[pXp][pXq] \mid 1[pXq][qXq]$
+		\end{itemize}
+		
+		\item 根据转移函数 $\delta(p, \epsilon, Z) = \{(p, \epsilon)\}$：
+		\begin{itemize}
+			\item $[pZp] \rightarrow \epsilon$
+		\end{itemize}
+		
+		\item 根据 $\delta(q, 0, Z) = \{(p, Z)\}$：
+		\begin{itemize}
+			\item $[qZp] \rightarrow 0[pZp]$
+			\item $[qZq] \rightarrow 0[pZq]$
+		\end{itemize}
+		
+		\item 根据 $\delta(q, 1, X) = \{(q, \epsilon)\}$：
+		\begin{itemize}
+			\item $[qXq] \rightarrow 1$
+		\end{itemize}
+	\end{itemize}
+	
+	将其中的内容都用ABCD等来表示，可以得到：
+	
+	\begin{itemize}
+		\item 起始符号：
+		$ S \rightarrow A \mid B $
+		
+		\item 产生式规则：
+		\begin{itemize}
+			\item \( A \rightarrow 1CA \mid 1DE \mid \epsilon \)
+			\item \( B \rightarrow 1CB \mid 1DF \)
+			\item \( C \rightarrow 0G \mid 1CC \mid 1DG \)
+			\item \( D \rightarrow 0H \mid 1CD \mid 1DH \)
+			\item \( E \rightarrow 0A \)
+			\item \( F \rightarrow 0E \)
+			\item \( H \rightarrow 1 \)
+		\end{itemize}
+	\end{itemize}
+	
+	\section*{解答 2}
+	
+	\begin{enumerate}[noitemsep, label={{\arabic*})}]
+		\item 消除 $\epsilon$ 产生式，删除 $ A \to \epsilon $，得到结果：
+		
+		\begin{align*}
+			S &\rightarrow A \mid B \\
+			A &\rightarrow 1CA \mid 1DE \mid 1C \\
+			B &\rightarrow 1CB \mid 1DF \\
+			C &\rightarrow 0G \mid 1CC \mid 1DG \\
+			D &\rightarrow 0H \mid 1CD \mid 1DH \\
+			E &\rightarrow 0A \mid 0 \\
+			F &\rightarrow 0E \\
+			H &\rightarrow 1
+		\end{align*}
+		
+		\item 消除单位产生式，消除 $ S \to A, S \to B$，得到结果：
+		
+		\begin{align*}
+			S &\rightarrow 1CA \mid 1DE \mid 1C \mid 1CB \mid 1DF \\
+			A &\rightarrow 1CA \mid 1DE \mid 1C \\
+			B &\rightarrow 1CB \mid 1DF \\
+			C &\rightarrow 0G \mid 1CC \mid 1DG \\
+			D &\rightarrow 0H \mid 1CD \mid 1DH \\
+			E &\rightarrow 0A \mid 0 \\
+			F &\rightarrow 0E \\
+			H &\rightarrow 1
+		\end{align*}
+		
+		\item 消除无用符号
+		
+		\begin{enumerate}
+			\item 计算产生符号：$g(G) = \{0, 1, E, F, H, D, B, A, S\}$，去除符号$C, G$，得到
+			\begin{align*}
+				S &\rightarrow 1DE \mid 1DF \\
+				A &\rightarrow 1DE \quad B \rightarrow 1DF \\
+				D &\rightarrow 0H \mid 1DH \\
+				E &\rightarrow 0A \mid 0 \quad F \rightarrow 0E \quad H \rightarrow 1
+			\end{align*}
+			
+			\item 计算到达符号：$r(G) = \{S, D, E, F, H, A\}$，去除符号$B$，得到
+			\begin{align*}
+				S &\rightarrow 1DE \mid 1DF \\
+				A &\rightarrow 1DE \quad D \rightarrow 0H \mid 1DH \\
+				E &\rightarrow 0A \mid 0 \quad F \rightarrow 0E \quad H \rightarrow 1
+			\end{align*}
+		\end{enumerate}
+		
+	\end{enumerate}\textbf{}
+	
+	\section*{解答 3}
+	
+	\begin{enumerate}
+		\item 替换所有长度大于1的终止符串，得到 \(E \rightarrow 0, H \rightarrow 1\)
+		\begin{align*}
+			S &\rightarrow HDE \mid HDF \\
+			A &\rightarrow HDE \\
+			D &\rightarrow EH \mid HDH \\
+			E &\rightarrow EA \mid 0 \quad F \rightarrow EE \quad H \rightarrow 1
+		\end{align*}
+		
+		\item 拆分长度大于2的非终止符串，得到
+		\begin{align*}
+			S &\rightarrow HC_1 \mid HC_2 \quad C_1 \rightarrow DE \quad C_2 \rightarrow DF \\
+			A &\rightarrow HC_1 \quad D \rightarrow EH \mid HC_3 \quad C_3 \rightarrow DH \\
+			E &\rightarrow EA \mid 0 \quad F \rightarrow EE \quad H \rightarrow 1
+		\end{align*}
+	\end{enumerate}
+	
+\end{document}
